@@ -1,5 +1,6 @@
 <?php 
 
+namespace models{
 class Driver{
     private $id;
     private $name;
@@ -57,4 +58,5 @@ class Driver{
     public function setStatus($status){
         $this->status=$status;
     }
+}
 }

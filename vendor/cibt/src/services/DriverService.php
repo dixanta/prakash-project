@@ -1,5 +1,7 @@
 <?php
-include_once('models/driver.php');
+
+namespace services{
+    use models\Driver;
 class DriverService{
 
     private $drivers=[];
@@ -37,11 +39,21 @@ class DriverService{
         $driver->setJoinDate(Date('Y-m-d H:i:s'));
         $driver->setStatus(false);
         $this->drivers[]=$driver;
+
+        $driver=new Driver();
+        $driver->setId(4);
+        $driver->setName('matty Smith');
+        $driver->setEmail('matty@citizen.com');
+        $driver->setContactNo('785797876978');
+        $driver->setJoinDate(Date('Y-m-d H:i:s'));
+        $driver->setStatus(false);
+        $this->drivers[]=$driver;
     }
 
     public function getDrivers(){
         return $this->drivers;
     }
+}
 }
 
 

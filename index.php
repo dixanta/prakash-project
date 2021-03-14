@@ -1,44 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <?php include_once('providers/DriverProvider.php');?>
-    <table border="1">
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Contact No</th>
-                <th>Join Date</th>
-                <th>Status</th>
-                <th>Action</th>
-            </tr>
-            <?php 
-                $provider=new DriverProvider();
-                foreach($provider->getDrivers(null) as $driver):
-            ?>
-                <tr>
-                    <td><?=$driver->getId()?></td>
-                    <td><?=$driver->getName()?></td>
-                    <td><?=$driver->getEmail()?></td>
-                    <td><?=$driver->getContactNo()?></td>
-                    <td><?=$driver->getJoinDate()?></td>
-                    <td>
-                    <?php
-                        echo ($driver->getStatus())?'Active':'Inactive';
-                    ?></td>
-                    <td>
-                        <a href="edit.php?id=<?=$driver->getId()?>">Edit</a> 
-                        Delete
-                    </td>
-                </tr>
-            <?php
-                endforeach;    
-            ?>
-    </table>
-</body>
-</html>
+<?php
+    include_once('./__autoload.php');
+    
+
+
+    
+    $url=$_SERVER['REQUEST_URI'];
+    $tokens=explode('/',$url);
+
+    print_r($tokens);
+    
+    if($tokens[1]=='' || $tokens[1]=='home'){
+        $controller = new http\Controllers\HomeController();
+        if(count($tokens)<=2){
+            $controller->index();
+        }else{
+            if(empty($tokens[2])|| $tokens[2]=='index'){
+                $controller->index();
+            }else{
+                $fn=$tokens[2];
+                $controller->{$fn}();
+            }
+        }
+    }else if($tokens[1]=='about'){
+        echo '<h1>Hello World About Page</h1>';
+    }else if($tokens[1]=='contact'){
+        echo '<h1>contact us</h1>';
+    }
+
+
+
